@@ -20,4 +20,4 @@ node_modules/
 /cypress/support
 /cypress/temp
 tmp/
-dbconfig.json
+/Users/callum.mohan/callback-cats-ui/dbconfig.json

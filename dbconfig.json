@@ -1,7 +1,7 @@
 { 
     "connectionLimit": 10, 
-    "host":     "localhost", 
-    "user":     "worlduser", 
-    "password": "worldPwd!", 
-    "database": "world" 
+    "host":     "academy2020.cpc8rvmbbd9k.eu-west-2.rds.amazonaws.com", 
+    "user":     "CallumM", 
+    "password": "BlueDragon2023", 
+    "database": "CompanyDb_CallbackCats" 
 }
