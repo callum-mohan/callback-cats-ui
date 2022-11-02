@@ -53,11 +53,11 @@ router.post('/add-employee-address', async (req,res) =>{
     res.redirect('add-employee-personal')
 })
 
-router.get('/add-employee-personal', async (req,res) => {
-    res.render('addemployeepersonal')
+router.get('/add-employee-financial', async (req,res) => {
+    res.render('addemployeefinancial')
 })
 
-router.post('/add-employee-personal', async (req,res) =>{
+router.post('/add-employee-financial', async (req,res) =>{
     var formData = req.body
     var Employee: Employee = {
       empID: Number(myCache.get('empID')),

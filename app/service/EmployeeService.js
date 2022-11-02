@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const employeeDao = require('../dao/employeeDao.js')
 const axios = require('axios');
 const https = require('https');
 const { response } = require('express');
