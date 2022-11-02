@@ -35,15 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var axios = require('axios');
-var https = require('https');
-var response = require('express').response;
+var axios = require("axios");
+var https = require("https");
+var response = require("express").response;
 var axiosInstance = axios.create({
     httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-    })
+        rejectUnauthorized: false,
+    }),
 });
 exports.addEmployee = function (newEmployee) { return __awaiter(_this, void 0, void 0, function () {
     var employees, response_1, e_1;
@@ -54,7 +54,7 @@ exports.addEmployee = function (newEmployee) { return __awaiter(_this, void 0, v
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.post('http://localhost:8080/api/employees/add/type=Employee', newEmployee)];
+                return [4 /*yield*/, axiosInstance.post("http://localhost:8080/api/employees/add/type=Employee", newEmployee)];
             case 2:
                 response_1 = _a.sent();
                 employees = response_1.data;
@@ -62,8 +62,54 @@ exports.addEmployee = function (newEmployee) { return __awaiter(_this, void 0, v
             case 3:
                 e_1 = _a.sent();
                 console.log(e_1);
-                return [2 /*return*/, new Error('Could not add employee')];
+                return [2 /*return*/, new Error("Could not add employee")];
             case 4: return [2 /*return*/, employees];
+        }
+    });
+}); };
+exports.getAllEmployeesFromAPI = function () { return __awaiter(_this, void 0, void 0, function () {
+    var employees, response_2, e_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                employees = [];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, axiosInstance.get(
+                    //port 8080 is the JAVA api but 3000 is the JS
+                    "http://localhost:8080/api/employees/get ")];
+            case 2:
+                response_2 = _a.sent();
+                employees = response_2.data;
+                return [2 /*return*/, employees];
+            case 3:
+                e_2 = _a.sent();
+                return [2 /*return*/, new Error("Could not get emmployee, error on the api get request")];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getEmployeesFromApiBySales = function () { return __awaiter(_this, void 0, void 0, function () {
+    var salesEmployees, response_3, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                salesEmployees = [];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, axiosInstance.get(
+                    //port 8080 is the JAVA api but 3000 is the JS
+                    "http://localhost:8080/api/employees/get/type=Sales ")];
+            case 2:
+                response_3 = _a.sent();
+                salesEmployees = response_3.data;
+                return [2 /*return*/, employees];
+            case 3:
+                e_3 = _a.sent();
+                return [2 /*return*/, new Error("Could not get emmployee, error on the api get request")];
+            case 4: return [2 /*return*/];
         }
     });
 }); };

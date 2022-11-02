@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var employeeService = require("../service/EmployeeService.js");
+var EMP_DATA_SERVICE_LAYER = require("../service/EmployeeService.js");
 var nodeCache = require("node-cache");
 var router = express.Router();
 var myCache = new nodeCache();
@@ -122,12 +122,21 @@ router.post('/add-employee-financial', function (req, res) { return __awaiter(vo
                     startSalary: formData.startSalary,
                     departmentID: formData.departmentID
                 };
-                return [4 /*yield*/, employeeService.addEmployee(Employee)];
+                return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addEmployee(Employee)];
             case 1:
                 _a.sent();
                 res.redirect('list-employees');
                 return [2 /*return*/];
         }
+    });
+}); });
+router.get('/get-employees', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var allEmployees;
+    return __generator(this, function (_a) {
+        allEmployees = EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();
+        //this rendered page doesnt exist yet
+        res.render('list-employees', { employee: allEmployees });
+        return [2 /*return*/];
     });
 }); });
 module.exports = router;
