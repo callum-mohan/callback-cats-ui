@@ -95,7 +95,7 @@ router.post('/add-employee-address', function (req, res) { return __awaiter(void
         formData = req.body;
         myCache.set('addressLine', formData.addressLine);
         myCache.set('postcode', formData.postcode);
-        res.redirect('add-employee-personal');
+        res.redirect('add-employee-financial');
         return [2 /*return*/];
     });
 }); });
@@ -125,7 +125,7 @@ router.post('/add-employee-financial', function (req, res) { return __awaiter(vo
                 return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addEmployee(Employee)];
             case 1:
                 _a.sent();
-                res.redirect('list-employees');
+                res.redirect('addemployeeconfirmation');
                 return [2 /*return*/];
         }
     });

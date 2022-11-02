@@ -6,10 +6,24 @@ Enter a new employee
 
 {% endblock %}
 {% block content %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+    {{ govukBreadcrumbs({
+    items: [
+        {
+        text: "Home",
+        href: "/start"
+        },
+        {
+        text: "Back",
+        href: "/start"
+        }
+    ]
+    }) }}
+
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-
 <br>
-
 <h1 class="govuk-heading-xl">
     Add Employee 
 </h1>{{releaseVersion | log }}
@@ -17,9 +31,6 @@ Enter a new employee
 <p>
     This service lets you add an employee to the database.
 </p>
-
-
-
 <br>
 
 {% if errormessage %}
@@ -28,44 +39,29 @@ Enter a new employee
 
 {% endif %}
 
-<form class="form" action="/addemployee-financial" method="post">
-
+<form class="form" action="/add-employee-id" method="post">
 
 
     {% from "govuk/components/input/macro.njk" import govukInput %}
-
     {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-
     {% from "govuk/components/input/macro.njk" import govukInput %}
-
 
     {{ govukInput({
-
-    label: {
-
-    text: "What is your employee ID?"
-
-    },
-
-    classes: "govuk-input--width-10",
-
-    id: "empID",
-
-    name: "empID",
-
-    value: data["empID"]
-
+        label: {
+        text: "What is your employee ID?"
+        },
+            classes: "govuk-input--width-10",
+            id: "empID",
+            name: "empID",
+            value: data["empID"]
     }) }}
 
     {{ govukInsetText({
-
-    text: "Ensure this is a valid ID"
-
+        text: "Ensure this is a valid ID"
     }) }}
 
     {% from "govuk/components/input/macro.njk" import govukInput %}
-
-
+    
     <button class="govuk-button" data-module="govuk-button">Continue</button>
 </form>
 
