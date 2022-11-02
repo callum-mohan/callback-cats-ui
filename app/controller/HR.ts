@@ -75,10 +75,9 @@ router.post('/add-employee-financial', async (req,res) =>{
 })
 
 router.get('/get-employees',async (req, res) => {
-    const allEmployees = EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();
+    const allEmployees = await EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();
 
-    //this rendered page doesnt exist yet
-    res.render('list-employees', {employee: allEmployees});
+    res.render('list-employees', {employees: allEmployees});
 })
 
 module.exports = router

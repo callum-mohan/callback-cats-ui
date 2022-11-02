@@ -133,10 +133,13 @@ router.post('/add-employee-financial', function (req, res) { return __awaiter(vo
 router.get('/get-employees', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var allEmployees;
     return __generator(this, function (_a) {
-        allEmployees = EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();
-        //this rendered page doesnt exist yet
-        res.render('list-employees', { employee: allEmployees });
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI()];
+            case 1:
+                allEmployees = _a.sent();
+                res.render('list-employees', { employees: allEmployees });
+                return [2 /*return*/];
+        }
     });
 }); });
 module.exports = router;
