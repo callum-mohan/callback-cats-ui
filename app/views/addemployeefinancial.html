@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+
+Enter a new employee
+
+{% endblock %}
+{% block content %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+
+<br>
+
+<h1 class="govuk-heading-xl">
+    Add Employee 
+</h1>{{releaseVersion | log }}
+
+<p>
+    
+</p>
+
+
+
+<br>
+
+{% if errormessage %}
+
+<div class="govuk-error-message">{{ errormessage }}</div>
+
+{% endif %}
+
+<form class="form" action="/add-employee-address" method="post">
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+    
+              {% call govukFieldset({
+                legend: {
+                      text: "Add new Employee Finance details:",
+                       classes: "govuk-fieldset__legend--l",
+                       isPageHeading: true
+                }
+              }) %}
+    
+                {{ govukInput({
+                      label: {
+                        text: 'NIN:'
+                      },
+                      id: "nin",
+                      name: "nin",
+                      autocomplete: "nin"
+                        }) }}
+    
+                {{ govukInput({
+                  label: {
+                    text: "BankNo:"
+                  },
+                  classes: "bankNo",
+                  id: "bankNo",
+                  name: "bankNo",
+                  autocomplete: "bankNo"
+                }) }}
+
+                {{ govukInput({
+                    label: {
+                      text: "Start Salary:"
+                    },
+                    classes: "startSalary",
+                    id: "startSalary",
+                    name: "startSalary",
+                    autocomplete: "startSalary"
+                  }) }}
+
+
+                  {{ govukInput({
+                    label: {
+                      text: "Department ID:"
+                    },
+                    classes: "departmentId",
+                    id: "departmentId",
+                    name: "departmentId",
+                    autocomplete: "departmentId"
+                  }) }}
+                
+        {% endcall %}
+
+    <button class="govuk-button" data-module="govuk-button">Continue</button>
+</form>
+
+
+
+{% endblock %}
