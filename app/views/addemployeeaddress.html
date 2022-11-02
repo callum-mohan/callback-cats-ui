@@ -6,6 +6,13 @@ Enter a new employee
 
 {% endblock %}
 {% block content %}
+{{ govukPhaseBanner({
+  tag: {
+  text: "Alpha"
+  },
+  html: 'This is a new service – your <a class="govuk-link" href="/feedback">feedback</a> will help us to improve it.'
+  }) }}
+  <br>
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 
