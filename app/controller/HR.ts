@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as employeeService from '../service/EmployeeService.js';
+import * as EMP_DATA_SERVICE_LAYER from '../service/EmployeeService.js';
 import * as nodeCache from 'node-cache';
 import {Employee} from '../model/Employee'
 import { formatDiagnosticsWithColorAndContext } from 'typescript';
@@ -70,8 +70,15 @@ router.post('/add-employee-financial', async (req,res) =>{
       startSalary: formData.startSalary,
       departmentID: formData.departmentID
     }
-    await employeeService.addEmployee(Employee)
+    await EMP_DATA_SERVICE_LAYER.addEmployee(Employee)
     res.redirect('list-employees')
+})
+
+router.get('/get-employees',async (req, res) => {
+    const allEmployees = EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();
+
+    //this rendered page doesnt exist yet
+    res.render('list-employees', {employee: allEmployees});
 })
 
 module.exports = router
