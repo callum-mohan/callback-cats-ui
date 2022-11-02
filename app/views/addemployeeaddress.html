@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+
+Enter a new employee
+
+{% endblock %}
+{% block content %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+
+<br>
+
+<h1 class="govuk-heading-xl">
+    Add Employee 
+</h1>{{releaseVersion | log }}
+
+<p>
+    
+</p>
+
+
+
+<br>
+
+{% if errormessage %}
+
+<div class="govuk-error-message">{{ errormessage }}</div>
+
+{% endif %}
+
+<form class="form" action="/add-employee-address" method="post">
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+    
+              {% call govukFieldset({
+                legend: {
+                      text: "Add new Employee Address:",
+                       classes: "govuk-fieldset__legend--l",
+                       isPageHeading: true
+                }
+              }) %}
+    
+                {{ govukInput({
+                      label: {
+                        text: 'Address:'
+                      },
+                      id: "address",
+                      name: "address",
+                      autocomplete: "address"
+                        }) }}
+    
+                {{ govukInput({
+                  label: {
+                    text: "Postcode:"
+                  },
+                  classes: "postcode",
+                  id: "postcode",
+                  name: "postcode",
+                  autocomplete: "postcode"
+                }) }}
+                
+        {% endcall %}
+
+    <button class="govuk-button" data-module="govuk-button">Continue</button>
+</form>
+
+
+
+{% endblock %}

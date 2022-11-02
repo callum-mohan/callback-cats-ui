@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var express = require('express');
 var router = express.Router();
-var employeeDao = require('../dao/employeeDao.js');
 var axios = require('axios');
 var https = require('https');
 var response = require('express').response;

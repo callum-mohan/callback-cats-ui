@@ -99,13 +99,13 @@ router.post('/add-employee-address', function (req, res) { return __awaiter(void
         return [2 /*return*/];
     });
 }); });
-router.get('/add-employee-personal', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.get('/add-employee-financial', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        res.render('addemployeepersonal');
+        res.render('addemployeefinancial');
         return [2 /*return*/];
     });
 }); });
-router.post('/add-employee-personal', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.post('/add-employee-financial', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var formData, Employee;
     return __generator(this, function (_a) {
         switch (_a.label) {
