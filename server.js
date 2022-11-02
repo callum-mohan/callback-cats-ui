@@ -24,7 +24,7 @@ const config = require('./app/config.js')
 const documentationRoutes = require('./docs/documentation_routes.js')
 const prototypeAdminRoutes = require('./lib/prototype-admin-routes.js')
 const packageJson = require('./package.json')
-const routes = require(`${process.cwd()}/app/routes.js`)
+const HRroute = require(`${process.cwd()}/built/controller/HR.js`)
 const utils = require('./lib/utils.js')
 const extensions = require('./lib/extensions/extensions.js')
 const { projectDir } = require('./lib/utils')
@@ -238,12 +238,12 @@ if (promoMode === 'true') {
 }
 
 // Load routes (found in app/routes.js)
-if (typeof (routes) !== 'function') {
-  console.log(routes.bind)
+if (typeof (HRroute) !== 'function') {
+  console.log(HRroute.bind)
   console.log('Warning: the use of bind in routes is deprecated - please check the Prototype Kit documentation for writing routes.')
-  routes.bind(app)
+  HRroute.bind(app)
 } else {
-  app.use('/', routes)
+  app.use('/', HRroute)
 }
 
 if (useDocumentation) {
