@@ -21,14 +21,13 @@ const myCache = new nodeCache();
 //     await employeeService.addEmployee(req.body);
 //     res.render('list-employees', {employees: await buildEmployeeData()})
 // })
-
-router.get('/add-employee-id', async (req,res) => {
-    res.render('addemployeeid')
+router.get('/add-employee-type', async (req,res) => {
+    res.render('addemployeetype')
 })
 
-router.post('/add-employee-id', async (req,res) =>{
+router.post('/add-employee-type', async (req,res) =>{
     var formData = req.body
-    myCache.set('empID', formData.empID)
+    myCache.set('empType', formData.empType)
     res.redirect('/add-employee-name')
 })
 
@@ -38,8 +37,11 @@ router.get('/add-employee-name', async (req,res) => {
 
 router.post('/add-employee-name', async (req,res) =>{
     var formData = req.body
+    console.log(formData)
+    myCache.set('empID', formData.empID)
     myCache.set('firstname', formData.firstname)
     myCache.set('lastname', formData.lastname)
+    
     res.redirect('add-employee-address')
 })
 

@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block pageTitle %}
+Enter a new employee
+{% endblock %}
+{% block content %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{{ govukPhaseBanner({
+tag: {
+text: "Alpha"
+},
+html: 'This is a new service – your <a class="govuk-link" href="/feedback">feedback</a> will help us to improve it.'
+}) }}
+<br>
+<h1 class="govuk-heading-xl">
+    Add Employee 
+  </h1>
+  {{releaseVersion | log }}
+
+  <p>
+    This service lets you add an employee to the database.
+  </p>
+<br>
+
+{% if errormessage %}
+<div class="govuk-error-message">{{ errormessage }}</div>
+{% endif %}
+
+<form class="form" action="/add-employee-type" method="post">
+  {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+  {{ govukRadios({
+    name: "empType",
+    fieldset: {
+      legend: {
+        text: "What type of employee would you like to add?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    items: [
+      {
+        value: "Delivery",
+        text: "Delivery"
+      },
+      {
+        value: "Sales",
+        text: "Sales"
+      },
+      {
+        value: "Standard",
+        text: "Standard"
+      }
+    ]
+  }) }}
+
+    <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+</form>
+
+
+{% endblock %}

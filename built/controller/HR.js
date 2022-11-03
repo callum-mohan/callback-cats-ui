@@ -52,17 +52,17 @@ var myCache = new nodeCache();
 //     await employeeService.addEmployee(req.body);
 //     res.render('list-employees', {employees: await buildEmployeeData()})
 // })
-router.get('/add-employee-id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.get('/add-employee-type', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        res.render('addemployeeid');
+        res.render('addemployeetype');
         return [2 /*return*/];
     });
 }); });
-router.post('/add-employee-id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.post('/add-employee-type', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var formData;
     return __generator(this, function (_a) {
         formData = req.body;
-        myCache.set('empID', formData.empID);
+        myCache.set('empType', formData.empType);
         res.redirect('/add-employee-name');
         return [2 /*return*/];
     });
@@ -77,6 +77,8 @@ router.post('/add-employee-name', function (req, res) { return __awaiter(void 0,
     var formData;
     return __generator(this, function (_a) {
         formData = req.body;
+        console.log(formData);
+        myCache.set('empID', formData.empID);
         myCache.set('firstname', formData.firstname);
         myCache.set('lastname', formData.lastname);
         res.redirect('add-employee-address');
@@ -96,7 +98,6 @@ router.post('/add-employee-address', function (req, res) { return __awaiter(void
         myCache.set('addressLine', formData.addressLine);
         myCache.set('postcode', formData.postcode);
         res.redirect('add-employee-financial');
-
         return [2 /*return*/];
     });
 }); });
