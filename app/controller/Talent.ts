@@ -10,7 +10,6 @@ router.get("/get-all-projects", async (req, res) => {
     var projects = await projectService.getAllProjects();
   res.render("list-all-projects", { projects: projects });
 });
-
 router.get('/add-project', async (req,res) => {
   res.render('addproject')
 })
