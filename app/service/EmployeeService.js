@@ -56,7 +56,6 @@ exports.addSalesEmployee = async (newEmployee) => {
 };
 
 
-
 exports.getAllEmployeesFromAPI = async () => {
   let employees = [];
   try {
