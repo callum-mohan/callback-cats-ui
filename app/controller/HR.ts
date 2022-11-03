@@ -3,6 +3,7 @@ import * as EMP_DATA_SERVICE_LAYER from '../service/EmployeeService.js';
 import * as nodeCache from 'node-cache';
 import {Employee} from '../model/Employee'
 import { formatDiagnosticsWithColorAndContext } from 'typescript';
+import { EmployeePersonal } from '../model/EmployeePersonal.js';
 
 const router = express.Router()
 const myCache = new nodeCache();
@@ -54,6 +55,7 @@ router.post('/add-employee-address', async (req,res) =>{
     myCache.set('addressLine', formData.addressLine)
     myCache.set('postcode', formData.postcode)
     res.redirect('add-employee-financial')
+
 })
 
 router.get('/add-employee-financial', async (req,res) => {
@@ -62,17 +64,15 @@ router.get('/add-employee-financial', async (req,res) => {
 
 router.post('/add-employee-financial', async (req,res) =>{
     var formData = req.body
-    if(myCache.get("empType") == "Delivery"){
-        console.log("delivery employee")
-        console.log(myCache.data)
-    }
+    const EMPLOYEE_PERSONAL_DETAILS: EmployeePersonal =
+    myCache.get("employee-personal");
 
     var Employee: Employee = {
-      empID: Number(myCache.get('empID')),
-      firstname: String(myCache.get('firstname')),
-      lastname: String(myCache.get('lastname')),
-      address: String(myCache.get('addressLine')),
-      postcode: String(myCache.get('postcode')),
+      empID: EMPLOYEE_PERSONAL_DETAILS.empID,
+      firstname: EMPLOYEE_PERSONAL_DETAILS.firstname,
+      lastname: EMPLOYEE_PERSONAL_DETAILS.lastname,
+      address: EMPLOYEE_PERSONAL_DETAILS.address,
+      postcode: EMPLOYEE_PERSONAL_DETAILS.postcode,
       nin: formData.nin,
       bankNo: formData.bankNo,
       startSalary: formData.startSalary,
