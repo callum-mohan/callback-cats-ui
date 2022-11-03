@@ -4,6 +4,8 @@ import * as nodeCache from 'node-cache';
 import {Employee} from '../model/Employee'
 import { formatDiagnosticsWithColorAndContext } from 'typescript';
 import { EmployeePersonal } from '../model/EmployeePersonal.js';
+import { DeliveryEmployee } from '../model/DeliveryEmployee.js';
+import { SalesEmployee } from '../model/SalesEmployee.js';
 
 const router = express.Router()
 const myCache = new nodeCache();
@@ -37,8 +39,8 @@ router.get('/add-employee-name', async (req,res) => {
 
 router.post('/add-employee-name', async (req,res) =>{
     var formData = req.body
-    console.log(formData)
-    myCache.set('empID', formData.empID)
+   
+    myCache.set('empID', 0)
     myCache.set('firstname', formData.firstname)
     myCache.set('lastname', formData.lastname)
     res.redirect('add-employee-address')
@@ -50,10 +52,8 @@ router.get('/add-employee-address', async (req,res) => {
 
 router.post('/add-employee-address', async (req,res) =>{
     var formData = req.body
-
-    myCache.set('addressLine', formData.addressLine)
+    myCache.set('addressLine', formData.address)
     myCache.set('postcode', formData.postcode)
-    console.log(myCache.data)
     res.redirect('add-employee-financial')
 
 })
@@ -63,25 +63,86 @@ router.get('/add-employee-financial', async (req,res) => {
 })
 
 router.post('/add-employee-financial', async (req,res) =>{
-    var formData = req.body
-    const EMPLOYEE_PERSONAL_DETAILS: EmployeePersonal =
-    myCache.get("employee-personal");
+    var formData = req.body 
+    // console.log(myCache.get("employee-personal"))
+    // const EMPLOYEE_PERSONAL_DETAILS: EmployeePersonal = myCache.get("employee-personal");
+   
+    if(myCache.get("empType") == "Standard"){
+        console.log(myCache.data)
 
-    var Employee: Employee = {
-      empID: EMPLOYEE_PERSONAL_DETAILS.empID,
-      firstname: EMPLOYEE_PERSONAL_DETAILS.firstname,
-      lastname: EMPLOYEE_PERSONAL_DETAILS.lastname,
-      address: EMPLOYEE_PERSONAL_DETAILS.address,
-      postcode: EMPLOYEE_PERSONAL_DETAILS.postcode,
-      nin: formData.nin,
-      bankNo: formData.bankNo,
-      startSalary: formData.startSalary,
-      departmentID: formData.departmentID
+            var Employee: Employee = {
+            empID: myCache.get("empID"),
+            firstname:myCache.get("firstname"),
+            lastname: myCache.get("lastname"),
+            address: myCache.get("address"),
+            postcode: myCache.get("postcode"),
+            nin: formData.nin,
+            bankNo: formData.bankNo,
+            startSalary: formData.startSalary,
+            departmentID: formData.departmentID
+            }
+            await EMP_DATA_SERVICE_LAYER.addEmployee(Employee)
+
+            res.redirect('addemployeeconfirmation')
     }
-    await EMP_DATA_SERVICE_LAYER.addEmployee(Employee)
+    if(myCache.get("empType") == "Delivery"){
 
-    res.redirect('addemployeeconfirmation')
+        var DeliveryEmployee: DeliveryEmployee = {
+            empID: myCache.get("empID"),
+            firstname:myCache.get("firstname"),
+            lastname: myCache.get("lastname"),
+            address: myCache.get("address"),
+            postcode: myCache.get("postcode"),
+            nin: formData.nin,
+            bankNo: formData.bankNo,
+            startSalary: formData.startSalary,
+            departmentID: formData.departmentId,
+            deliveryID: 0
+            }
+            await EMP_DATA_SERVICE_LAYER.addDeliveryEmployee(DeliveryEmployee)
+
+            res.redirect('addemployeeconfirmation')
+
+    }
+    if(myCache.get("empType") == "Sales"){
+
+            myCache.set('nin', formData.nin)
+            myCache.set('bankNo', formData.bankNo)
+            myCache.set('startSalary', formData.startSalary)
+            myCache.set('departmentId', formData.departmentId)
+
+            res.redirect('/add-employee-sales')
+
+    }
 })
+
+router.get('/add-employee-sales', async (req,res) => {
+    res.render('addemployeesales')
+})
+
+router.post('/add-employee-sales', async (req,res) =>{
+    var formData = req.body
+    myCache.set('commissionRate', formData.commissionRate)
+    myCache.set('totalSales', formData.totalSales)
+
+    var SalesEmployee: SalesEmployee = {
+        empID: myCache.get("empID"),
+        firstname:myCache.get("firstname"),
+        lastname: myCache.get("lastname"),
+        address: myCache.get("address"),
+        postcode: myCache.get("postcode"),
+        nin: formData.nin,
+        bankNo: formData.bankNo,
+        startSalary: formData.startSalary,
+        departmentID: formData.departmentID,
+        salesID: 0,
+        commissionRate: myCache.get("commissionRate"),
+        totalSales: myCache.get("totalSales")
+        }
+        await EMP_DATA_SERVICE_LAYER.addSalesEmployee(SalesEmployee)
+        res.redirect('addemployeeconfirmation')
+})
+
 
 router.get('/get-employees',async (req, res) => {
     const allEmployees = await EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();

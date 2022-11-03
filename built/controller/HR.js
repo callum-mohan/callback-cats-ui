@@ -77,8 +77,7 @@ router.post('/add-employee-name', function (req, res) { return __awaiter(void 0,
     var formData;
     return __generator(this, function (_a) {
         formData = req.body;
-        console.log(formData);
-        myCache.set('empID', formData.empID);
+        myCache.set('empID', 0);
         myCache.set('firstname', formData.firstname);
         myCache.set('lastname', formData.lastname);
         res.redirect('add-employee-address');
@@ -95,9 +94,8 @@ router.post('/add-employee-address', function (req, res) { return __awaiter(void
     var formData;
     return __generator(this, function (_a) {
         formData = req.body;
-        myCache.set('addressLine', formData.addressLine);
+        myCache.set('addressLine', formData.address);
         myCache.set('postcode', formData.postcode);
-        console.log(myCache.data);
         res.redirect('add-employee-financial');
         return [2 /*return*/];
     });
@@ -109,24 +107,89 @@ router.get('/add-employee-financial', function (req, res) { return __awaiter(voi
     });
 }); });
 router.post('/add-employee-financial', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var formData, EMPLOYEE_PERSONAL_DETAILS, Employee;
+    var formData, Employee, DeliveryEmployee;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 formData = req.body;
-                EMPLOYEE_PERSONAL_DETAILS = myCache.get("employee-personal");
+                if (!(myCache.get("empType") == "Standard")) return [3 /*break*/, 2];
+                console.log(myCache.data);
                 Employee = {
-                    empID: EMPLOYEE_PERSONAL_DETAILS.empID,
-                    firstname: EMPLOYEE_PERSONAL_DETAILS.firstname,
-                    lastname: EMPLOYEE_PERSONAL_DETAILS.lastname,
-                    address: EMPLOYEE_PERSONAL_DETAILS.address,
-                    postcode: EMPLOYEE_PERSONAL_DETAILS.postcode,
+                    empID: myCache.get("empID"),
+                    firstname: myCache.get("firstname"),
+                    lastname: myCache.get("lastname"),
+                    address: myCache.get("address"),
+                    postcode: myCache.get("postcode"),
                     nin: formData.nin,
                     bankNo: formData.bankNo,
                     startSalary: formData.startSalary,
                     departmentID: formData.departmentID
                 };
                 return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addEmployee(Employee)];
+            case 1:
+                _a.sent();
+                res.redirect('addemployeeconfirmation');
+                _a.label = 2;
+            case 2:
+                if (!(myCache.get("empType") == "Delivery")) return [3 /*break*/, 4];
+                DeliveryEmployee = {
+                    empID: myCache.get("empID"),
+                    firstname: myCache.get("firstname"),
+                    lastname: myCache.get("lastname"),
+                    address: myCache.get("address"),
+                    postcode: myCache.get("postcode"),
+                    nin: formData.nin,
+                    bankNo: formData.bankNo,
+                    startSalary: formData.startSalary,
+                    departmentID: formData.departmentId,
+                    deliveryID: 0
+                };
+                return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addDeliveryEmployee(DeliveryEmployee)];
+            case 3:
+                _a.sent();
+                res.redirect('addemployeeconfirmation');
+                _a.label = 4;
+            case 4:
+                if (myCache.get("empType") == "Sales") {
+                    myCache.set('nin', formData.nin);
+                    myCache.set('bankNo', formData.bankNo);
+                    myCache.set('startSalary', formData.startSalary);
+                    myCache.set('departmentId', formData.departmentId);
+                    res.redirect('/add-employee-sales');
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.get('/add-employee-sales', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.render('addemployeesales');
+        return [2 /*return*/];
+    });
+}); });
+router.post('/add-employee-sales', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var formData, SalesEmployee;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                formData = req.body;
+                myCache.set('commissionRate', formData.commissionRate);
+                myCache.set('totalSales', formData.totalSales);
+                SalesEmployee = {
+                    empID: myCache.get("empID"),
+                    firstname: myCache.get("firstname"),
+                    lastname: myCache.get("lastname"),
+                    address: myCache.get("address"),
+                    postcode: myCache.get("postcode"),
+                    nin: formData.nin,
+                    bankNo: formData.bankNo,
+                    startSalary: formData.startSalary,
+                    departmentID: formData.departmentID,
+                    salesID: 0,
+                    commissionRate: myCache.get("commissionRate"),
+                    totalSales: myCache.get("totalSales")
+                };
+                return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addSalesEmployee(SalesEmployee)];
             case 1:
                 _a.sent();
                 res.redirect('addemployeeconfirmation');

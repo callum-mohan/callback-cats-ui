@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+Enter a new employee
+{% endblock %}
+
+{% block content %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+    {{ govukBreadcrumbs({
+        items: [
+            {
+            text: "Home",
+            href: "/start"
+            },
+            {
+            text: "Back",
+            href: "/add-employee-type"
+            }
+        ]
+    }) }}
+
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+<br>
+<h1 class="govuk-heading-xl">
+    Add Employee 
+</h1>{{releaseVersion | log }}
+<p>
+    This service allows you add an employee's details to the database.
+</p>
+<br>
+
+{% if errormessage %}
+<div class="govuk-error-message">{{ errormessage }}</div>
+{% endif %}
+
+<form class="form" action="/add-employee-sales" method="post">
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+    {{ govukInput({
+        label: {
+        text: "What is your comission rate?"
+        },
+        classes: "govuk-input--width-10",
+        id: "comissionRate",
+        name: "comissionRate"
+    }) }}
+    {{ govukInput({
+        label: {
+        text: "What is your total sales this pay period?"
+        },
+        classes: "govuk-input--width-10",
+        id: "totalSales",
+        name: "totalSales"
+    }) }}
+
+    <button class="govuk-button" data-module="govuk-button">Continue</button>
+</form>
+
+{% endblock %}
