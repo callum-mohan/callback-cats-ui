@@ -3,12 +3,21 @@
 List of Employees
 {% endblock %}
 {% block content %}
-{{ govukPhaseBanner({
-    tag: {
-    text: "Alpha"
-    },
-    html: 'This is a new service – your <a class="govuk-link" href="/feedback">feedback</a> will help us to improve it.'
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+    {{ govukBreadcrumbs({
+        items: [
+            {
+            text: "Home",
+            href: "/start"
+            },
+            {
+            text: "Back",
+            href: "/start"
+            }
+        ]
     }) }}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
   <br>
 <h1 class="govuk-heading-xl">
   All Sales Employees
@@ -44,9 +53,4 @@ There are no Sales Employees.
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<ul class="govuk-list govuk-list--bullet">
-    <li>
-      <a href="start.html">Return back</a>
-    </li>
-  </ul>
 {% endblock %}
