@@ -52,7 +52,7 @@ router.get('/add-employee-address', async (req,res) => {
 
 router.post('/add-employee-address', async (req,res) =>{
     var formData = req.body
-    myCache.set('addressLine', formData.address)
+    myCache.set('address', formData.address)
     myCache.set('postcode', formData.postcode)
     res.redirect('add-employee-financial')
 
@@ -71,15 +71,15 @@ router.post('/add-employee-financial', async (req,res) =>{
         console.log(myCache.data)
 
             var Employee: Employee = {
-            empID: myCache.get("empID"),
-            firstname:myCache.get("firstname"),
-            lastname: myCache.get("lastname"),
+            employeeId: myCache.get("empID"),
+            first_name:myCache.get("firstname"),
+            last_name: myCache.get("lastname"),
             address: myCache.get("address"),
             postcode: myCache.get("postcode"),
             nin: formData.nin,
             bankNo: formData.bankNo,
             startSalary: formData.startSalary,
-            departmentID: formData.departmentID
+            departmentId: formData.departmentId
             }
             await EMP_DATA_SERVICE_LAYER.addEmployee(Employee)
 
@@ -87,18 +87,21 @@ router.post('/add-employee-financial', async (req,res) =>{
     }
     if(myCache.get("empType") == "Delivery"){
 
+        console.log(myCache.data)
+
         var DeliveryEmployee: DeliveryEmployee = {
-            empID: myCache.get("empID"),
-            firstname:myCache.get("firstname"),
-            lastname: myCache.get("lastname"),
+            employeeId: myCache.get("empID"),
+            first_name:myCache.get("firstname"),
+            last_name: myCache.get("lastname"),
             address: myCache.get("address"),
             postcode: myCache.get("postcode"),
             nin: formData.nin,
             bankNo: formData.bankNo,
             startSalary: formData.startSalary,
-            departmentID: formData.departmentId,
-            deliveryID: 0
+            departmentId: formData.departmentId,
+            deliveryId: 0
             }
+            console.log(DeliveryEmployee)
             await EMP_DATA_SERVICE_LAYER.addDeliveryEmployee(DeliveryEmployee)
 
             res.redirect('addemployeeconfirmation')
@@ -126,19 +129,20 @@ router.post('/add-employee-sales', async (req,res) =>{
     myCache.set('totalSales', formData.totalSales)
 
     var SalesEmployee: SalesEmployee = {
-        empID: myCache.get("empID"),
-        firstname:myCache.get("firstname"),
-        lastname: myCache.get("lastname"),
+        employeeId: myCache.get("empID"),
+        first_name:myCache.get("firstname"),
+        last_name: myCache.get("lastname"),
         address: myCache.get("address"),
         postcode: myCache.get("postcode"),
         nin: formData.nin,
         bankNo: formData.bankNo,
         startSalary: formData.startSalary,
-        departmentID: formData.departmentID,
-        salesID: 0,
+        departmentId: formData.departmentId,
+        salesId: 0,
         commissionRate: myCache.get("commissionRate"),
         totalSales: myCache.get("totalSales")
         }
+    
         await EMP_DATA_SERVICE_LAYER.addSalesEmployee(SalesEmployee)
         res.redirect('addemployeeconfirmation')
 })

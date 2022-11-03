@@ -1,14 +1,14 @@
 export interface SalesEmployee{
-    empID: Number
-    firstname: string
-    lastname: string
+    employeeId: Number
+    first_name: string
+    last_name: string
     address: string
     postcode: string
     nin: string
     bankNo: string
     startSalary: string
-    departmentID: Number
-    salesID: Number
+    departmentId: Number
+    salesId: Number
     commissionRate: Number
     totalSales: Number
    
