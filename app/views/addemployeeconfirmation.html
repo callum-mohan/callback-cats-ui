@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+{{ govukHeader() }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+         {% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+            {{ govukPanel ({
+            titleText: "Application complete!",
+            html: "Your employee has been added to the database.<br><strong></strong>"
+            }) }}
+         <br>
+         {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+            {{ govukBackLink({
+                text: "Return to Home",
+                href: "/start"
+            }) }}
+        
+        <div class="govuk-grid-column-one-third">
+     </div>
+</div>
+{% endblock %}

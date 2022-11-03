@@ -49,8 +49,11 @@ router.get('/add-employee-address', async (req,res) => {
 
 router.post('/add-employee-address', async (req,res) =>{
     var formData = req.body
-    myCache.set('employee-personal', formData)
-    res.redirect('add-employee-personal')
+
+    myCache.set('addressLine', formData.addressLine)
+    myCache.set('postcode', formData.postcode)
+    res.redirect('add-employee-financial')
+
 })
 
 router.get('/add-employee-financial', async (req,res) => {
@@ -74,12 +77,12 @@ router.post('/add-employee-financial', async (req,res) =>{
       departmentID: formData.departmentID
     }
     await EMP_DATA_SERVICE_LAYER.addEmployee(Employee)
-    res.redirect('list-employees')
+
+    res.redirect('addemployeeconfirmation')
 })
 
 router.get('/get-employees',async (req, res) => {
     const allEmployees = await EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();
-
     res.render('list-employees', {employees: allEmployees});
 })
 

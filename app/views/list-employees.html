@@ -3,12 +3,7 @@
 List of Employees
 {% endblock %}
 {% block content %}
-{{ govukPhaseBanner({
-  tag: {
-  text: "Alpha"
-  },
-  html: 'This is a new service – your <a class="govuk-link" href="/feedback">feedback</a> will help us to improve it.'
-  }) }}
+
   <br>
 <h1 class="govuk-heading-xl">
   All Employees
@@ -24,34 +19,6 @@ List of Employees
 <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make
     improvements.</p>
 {% endset %}
-
-{{ govukCookieBanner({
-ariaLabel: "Cookies on Cites for govuk",
-messages: [
-{
-headingText: "Cookies on Cities",
-html: html,
-actions: [
-{
-text: "Accept analytics cookies",
-type: "button",
-name: "cookies",
-value: "accept"
-},
-{
-text: "Reject analytics cookies",
-type: "button",
-name: "cookies",
-value: "reject"
-},
-{
-text: "View cookies",
-href: "#"
-}
-]
-}
-]
-}) }}
 
 {% if employees and employees.length > 0 %}
 {% set employeeRows = [] %}
