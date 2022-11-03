@@ -55,3 +55,8 @@ module.exports.checkLevelValue = (levelValue) => {
 
     return IS_VALID;
 }
+
+module.exports.checkPostcode = (postcode) => {
+    var IS_VALID = false;
+    
+}

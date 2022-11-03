@@ -19,7 +19,6 @@ exports.getEmployeesFromApiBySales = async() => {
       );
   
       salesEmployees = response.data;
-     
   
       return salesEmployees;
     } catch (e) {
