@@ -240,14 +240,8 @@ if (promoMode === 'true') {
   })
 }
 
-// Load routes (found in app/routes.js)
-if (typeof (HRroute) !== 'function') {
-  console.log(HRroute.bind)
-  console.log('Warning: the use of bind in routes is deprecated - please check the Prototype Kit documentation for writing routes.')
-  HRroute.bind(app)
-} else {
-  app.use('/', HRroute)
-}
+app.use('/', HRroute, salesRoute, financeRoute, talentRoute)
+
 
 if (useDocumentation) {
   // Clone app locals to documentation app locals
