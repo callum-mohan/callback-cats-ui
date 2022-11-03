@@ -78,4 +78,5 @@ router.post('/add-project', function (req, res) { return __awaiter(void 0, void 
         }
     });
 }); });
+module.exports = router;
 //# sourceMappingURL=Talent.js.map

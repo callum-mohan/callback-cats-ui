@@ -53,4 +53,5 @@ router.get("/list-sales-employee", function (req, res) { return __awaiter(void 0
         }
     });
 }); });
+module.exports = router;
 //# sourceMappingURL=Sales.js.map
