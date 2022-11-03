@@ -97,6 +97,7 @@ router.post('/add-employee-address', function (req, res) { return __awaiter(void
         formData = req.body;
         myCache.set('addressLine', formData.addressLine);
         myCache.set('postcode', formData.postcode);
+        console.log(myCache.data);
         res.redirect('add-employee-financial');
         return [2 /*return*/];
     });

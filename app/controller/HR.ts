@@ -41,7 +41,6 @@ router.post('/add-employee-name', async (req,res) =>{
     myCache.set('empID', formData.empID)
     myCache.set('firstname', formData.firstname)
     myCache.set('lastname', formData.lastname)
-    
     res.redirect('add-employee-address')
 })
 
@@ -54,6 +53,7 @@ router.post('/add-employee-address', async (req,res) =>{
 
     myCache.set('addressLine', formData.addressLine)
     myCache.set('postcode', formData.postcode)
+    console.log(myCache.data)
     res.redirect('add-employee-financial')
 
 })
