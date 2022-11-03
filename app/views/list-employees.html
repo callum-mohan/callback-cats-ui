@@ -3,7 +3,22 @@
 List of Employees
 {% endblock %}
 {% block content %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
+    {{ govukBreadcrumbs({
+        items: [
+            {
+            text: "Home",
+            href: "/start"
+            },
+            {
+            text: "Back",
+            href: "/start"
+            }
+        ]
+    }) }}
+
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 <h1 class="govuk-heading-xl">
   All Employees
   <span class="govuk-caption-xl"></span>
@@ -31,10 +46,4 @@ There are no Employees.
 {% endif %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
-
-<ul class="govuk-list govuk-list--bullet">
-    <li>
-      <a href="index.html">Return back</a>
-    </li>
-  </ul>
 {% endblock %}
