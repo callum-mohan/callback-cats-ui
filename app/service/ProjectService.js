@@ -20,7 +20,7 @@ exports.getAllProjects = async() => {
   
       allProjects = response.data;
   
-      return employees;
+      return allProjects;
     } catch (e) {
       return new Error("Could not get project, error on the api get request");
     }
@@ -31,12 +31,12 @@ exports.getAllProjects = async() => {
     try {
       const response = await axiosInstance.get(
         //port 8080 is the JAVA api but 3000 is the JS
-        `http://localhost:8080/api/talent/projects `
+        `http://localhost:8080/api/talent/unassigned-employees`
       );
   
-      allProjects = response.data;
+      EmployeesWithoutProject = response.data;
   
-      return employees;
+      return EmployeesWithoutProject;
     } catch (e) {
       return new Error("Could not get project, error on the api get request");
     }
@@ -44,16 +44,16 @@ exports.getAllProjects = async() => {
 
 
   exports.getProjectsWithoutEmployees = async() => {
-    let ProjectsWith = [];
+    let ProjectsWithoutEmployees = [];
     try {
       const response = await axiosInstance.get(
         //port 8080 is the JAVA api but 3000 is the JS
-        `http://localhost:8080/api/talent/projects `
+        `http://localhost:8080/api/talent/unassigned-projects`
       );
   
-      allProjects = response.data;
+      ProjectsWithoutEmployees = response.data;
   
-      return employees;
+      return ProjectsWithoutEmployees;
     } catch (e) {
       return new Error("Could not get project, error on the api get request");
     }

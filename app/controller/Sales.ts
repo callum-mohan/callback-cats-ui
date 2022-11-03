@@ -11,5 +11,5 @@ const myCache = new nodeCache();
 router.get("/list-sales-employee", async (req, res) => {
   var allSalesEmployees =
     await SALES_EMP_DATA_SERVICE_LAYER.getEmployeesFromApiBySales();
-  res.render("list-sales-employee", { salesEmployees: allSalesEmployees });
+  res.render("list-sales-employee.html", { salesEmployees: allSalesEmployees });
 });
