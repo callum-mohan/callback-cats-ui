@@ -45,117 +45,95 @@ var axiosInstance = axios.create({
         rejectUnauthorized: false,
     }),
 });
-exports.addEmployee = function (newEmployee) { return __awaiter(_this, void 0, void 0, function () {
-    var employees, response_1, e_1;
+exports.getAllProjects = function () { return __awaiter(_this, void 0, void 0, function () {
+    var allProjects, response_1, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                employees = [];
+                allProjects = [];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.post("http://localhost:8080/api/employees/add/type=Employee", newEmployee)];
+                return [4 /*yield*/, axiosInstance.get(
+                    //port 8080 is the JAVA api but 3000 is the JS
+                    "http://localhost:8080/api/talent/projects ")];
             case 2:
                 response_1 = _a.sent();
-                employees = response_1.data;
-                return [3 /*break*/, 4];
+                allProjects = response_1.data;
+                return [2 /*return*/, employees];
             case 3:
                 e_1 = _a.sent();
-                console.log(e_1);
-                return [2 /*return*/, new Error("Could not add employee")];
-            case 4: return [2 /*return*/, employees];
+                return [2 /*return*/, new Error("Could not get project, error on the api get request")];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
-exports.addDeliveryEmployee = function (newEmployee) { return __awaiter(_this, void 0, void 0, function () {
-    var employees, response_2, e_2;
+exports.getEmployeesWithoutProject = function () { return __awaiter(_this, void 0, void 0, function () {
+    var EmployeesWithoutProject, response_2, e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                employees = [];
+                EmployeesWithoutProject = [];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.post("http://localhost:8080/api/employees/add/type=Delivery", newEmployee)];
+                return [4 /*yield*/, axiosInstance.get(
+                    //port 8080 is the JAVA api but 3000 is the JS
+                    "http://localhost:8080/api/talent/projects ")];
             case 2:
                 response_2 = _a.sent();
-                employees = response_2.data;
-                return [3 /*break*/, 4];
+                allProjects = response_2.data;
+                return [2 /*return*/, employees];
             case 3:
                 e_2 = _a.sent();
-                console.log(e_2);
-                return [2 /*return*/, new Error("Could not add delivery employee")];
-            case 4: return [2 /*return*/, employees];
+                return [2 /*return*/, new Error("Could not get project, error on the api get request")];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
-exports.addSalesEmployee = function (newEmployee) { return __awaiter(_this, void 0, void 0, function () {
-    var employees, response_3, e_3;
+exports.getProjectsWithoutEmployees = function () { return __awaiter(_this, void 0, void 0, function () {
+    var ProjectsWith, response_3, e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                employees = [];
+                ProjectsWith = [];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.post("http://localhost:8080/api/employees/add/type=Sales", newEmployee)];
+                return [4 /*yield*/, axiosInstance.get(
+                    //port 8080 is the JAVA api but 3000 is the JS
+                    "http://localhost:8080/api/talent/projects ")];
             case 2:
                 response_3 = _a.sent();
-                employees = response_3.data;
-                return [3 /*break*/, 4];
+                allProjects = response_3.data;
+                return [2 /*return*/, employees];
             case 3:
                 e_3 = _a.sent();
-                console.log(e_3);
-                return [2 /*return*/, new Error("Could not add delivery employee")];
-            case 4: return [2 /*return*/, employees];
+                return [2 /*return*/, new Error("Could not get project, error on the api get request")];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
-exports.getAllEmployeesFromAPI = function () { return __awaiter(_this, void 0, void 0, function () {
-    var employees, response_4, e_4;
+exports.addProject = function (newProject) { return __awaiter(_this, void 0, void 0, function () {
+    var projects, response_4, e_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                employees = [];
+                projects = [];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.get(
-                    //port 8080 is the JAVA api but 3000 is the JS
-                    "http://localhost:8080/api/employees/get ")];
+                return [4 /*yield*/, axiosInstance.post("http://localhost:8080/api/projects/add", newProject)];
             case 2:
                 response_4 = _a.sent();
-                employees = response_4.data;
-                return [2 /*return*/, employees];
+                projects = response_4.data;
+                return [3 /*break*/, 4];
             case 3:
                 e_4 = _a.sent();
-                return [2 /*return*/, new Error("Could not get emmployee, error on the api get request")];
-            case 4: return [2 /*return*/];
+                console.log(e_4);
+                return [2 /*return*/, new Error("Could not add project")];
+            case 4: return [2 /*return*/, projects];
         }
     });
 }); };
-exports.getEmployeesFromApiBySales = function () { return __awaiter(_this, void 0, void 0, function () {
-    var salesEmployees, response_5, e_5;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                salesEmployees = [];
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.get(
-                    //port 8080 is the JAVA api but 3000 is the JS
-                    "http://localhost:8080/api/employees/get/type=Sales ")];
-            case 2:
-                response_5 = _a.sent();
-                salesEmployees = response_5.data;
-                return [2 /*return*/, employees];
-            case 3:
-                e_5 = _a.sent();
-                return [2 /*return*/, new Error("Could not get emmployee, error on the api get request")];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
-
-//# sourceMappingURL=EmployeeService.js.map
+//# sourceMappingURL=ProjectService.js.map
