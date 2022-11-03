@@ -166,6 +166,7 @@ router.post('/add-employee-sales', function (req, res) { return __awaiter(void 0
         switch (_a.label) {
             case 0:
                 formData = req.body;
+                console.log(formData);
                 myCache.set('commissionRate', formData.commissionRate);
                 myCache.set('totalSales', formData.totalSales);
                 SalesEmployee = {
@@ -174,14 +175,15 @@ router.post('/add-employee-sales', function (req, res) { return __awaiter(void 0
                     last_name: String(myCache.get("lastname")),
                     address: String(myCache.get("address")),
                     postcode: String(myCache.get("postcode")),
-                    nin: formData.nin,
-                    bankNo: formData.bankNo,
-                    startSalary: formData.startSalary,
-                    departmentId: formData.departmentId,
+                    nin: String(myCache.get("nin")),
+                    bankNo: String(myCache.get("bankNo")),
+                    startSalary: String(myCache.get("startSalary")),
+                    departmentId: Number(myCache.get("departmentId")),
                     salesId: 0,
                     commissionRate: Number(myCache.get("commissionRate")),
                     totalSales: Number(myCache.get("totalSales"))
                 };
+                console.log(SalesEmployee);
                 return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addSalesEmployee(SalesEmployee)];
             case 1:
                 _a.sent();

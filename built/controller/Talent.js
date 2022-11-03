@@ -42,13 +42,13 @@ var nodeCache = require("node-cache");
 var router = express.Router();
 var myCache = new nodeCache();
 router.get("/get-all-projects", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var allProjects;
+    var projects;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, projectService.getAllProjects()];
             case 1:
-                allProjects = _a.sent();
-                res.render("list-all-employee", { projects: allProjects });
+                projects = _a.sent();
+                res.render("list-all-projects", { projects: projects });
                 return [2 /*return*/];
         }
     });

@@ -68,6 +68,7 @@ router.post('/add-employee-financial', async (req,res) =>{
             startSalary: formData.startSalary,
             departmentId: formData.departmentId
             }
+            
             await EMP_DATA_SERVICE_LAYER.addEmployee(Employee)
 
             res.redirect('addemployeeconfirmation')
@@ -111,6 +112,7 @@ router.get('/add-employee-sales', async (req,res) => {
 
 router.post('/add-employee-sales', async (req,res) =>{
     var formData = req.body
+    console.log(formData)
     myCache.set('commissionRate', formData.commissionRate)
     myCache.set('totalSales', formData.totalSales)
 
@@ -120,15 +122,15 @@ router.post('/add-employee-sales', async (req,res) =>{
         last_name: String(myCache.get("lastname")),
         address: String(myCache.get("address")),
         postcode: String(myCache.get("postcode")),
-        nin: formData.nin,
-        bankNo: formData.bankNo,
-        startSalary: formData.startSalary,
-        departmentId: formData.departmentId,
+        nin: String(myCache.get("nin")),
+        bankNo: String(myCache.get("bankNo")),
+        startSalary: String(myCache.get("startSalary")),
+        departmentId: Number(myCache.get("departmentId")),
         salesId: 0,
         commissionRate: Number(myCache.get("commissionRate")),
         totalSales: Number(myCache.get("totalSales"))
         }
-    
+        console.log(SalesEmployee)
         await EMP_DATA_SERVICE_LAYER.addSalesEmployee(SalesEmployee)
         res.redirect('addemployeeconfirmation')
 })
@@ -163,6 +165,10 @@ router.get("/get-all-delivery-employees", async (req, res) => {
     var deliveryEmployees = await deliveryEmployeeService.getDeliveryEmployees();
   res.render("list-delivery-employees", { deliveryEmployees: deliveryEmployees });
 });
+
+
+
+
 
 
 module.exports = router
