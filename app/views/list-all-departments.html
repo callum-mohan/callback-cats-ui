@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block pageTitle %}
+List of Departments
+{% endblock %}
+{% block content %}
+
+  <br>
+<h1 class="govuk-heading-xl">
+  All Departments
+  <span class="govuk-caption-xl"></span>
+</h1>
+<p>
+  This lets you view all the departments, and all information stored of them.
+</p>
+
+{% if departments and departments.length > 0 %}
+{% set departmentRows = [] %}
+{% for department in departments %}
+{% set departmentRows = (departmentRows.push([ { text: department.departmentId }, { text: department.departmentName  }, { text: department.departmentDescription } ]), departmentRows) %}
+{% endfor %}
+{{govukTable({
+caption:"List of Departments",
+head: [ { text: "ID" },{ text: "Name" },{ text: "Description" }],
+rows: departmentRows })
+}}
+{% else %}
+There are no departments.
+{% endif %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<ul class="govuk-list govuk-list--bullet">
+    <li>
+      <a href="index.html">Return back</a>
+    </li>
+  </ul>
+{% endblock %}
