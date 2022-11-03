@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+Add a new department
+{% endblock %}
+
+{% block content %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+    {{ govukBreadcrumbs({
+        items: [
+            {
+            text: "Home",
+            href: "/start"
+            },
+            {
+            text: "Back",
+            href: "/start"
+            }
+        ]
+    }) }}
+
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+<br>
+<h1 class="govuk-heading-xl">
+    Add Department 
+</h1>{{releaseVersion | log }}
+<p>
+    This service allows you add a department to the system.
+</p>
+<br>
+
+{% if errormessage %}
+<div class="govuk-error-message">{{ errormessage }}</div>
+{% endif %}
+
+<form class="form" action="/add-department" method="post">
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+
+    {{ govukInput({
+        label: {
+        text: "What is the department name?"
+        },
+        classes: "govuk-input--width-10",
+        id: "departmentName",
+        name: "departmentName",
+        value: data["departmentName"]
+    }) }}
+
+
+    {{ govukInsetText({
+    text: "Ensure this is only the department name"
+    }) }}
+
+    {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+    {{ govukTextarea({
+    name: "departmentDescription",
+    id: "departmentDescription",
+    value: data["departmentDescription"],
+    label: {
+    text: "Add department description",
+    classes: "govuk-label--l",
+    isPageHeading: true
+    },
+    hint: {
+    text: "Add a brief description of the department including any important details."
+    }
+    }) }}
+
+    {{ govukInsetText({
+        text: "Ensure this is only the department description"
+    }) }}
+
+    <button class="govuk-button" data-module="govuk-button">Add project</button>
+</form>
+
+{% endblock %}

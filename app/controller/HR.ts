@@ -1,28 +1,15 @@
 import * as express from 'express';
 import * as EMP_DATA_SERVICE_LAYER from '../service/EmployeeService.js';
 import * as nodeCache from 'node-cache';
-import {Employee} from '../model/Employee'
-import { formatDiagnosticsWithColorAndContext } from 'typescript';
-import { EmployeePersonal } from '../model/EmployeePersonal.js';
+import {Department} from '../model/Department'
 import { DeliveryEmployee } from '../model/DeliveryEmployee.js';
 import { SalesEmployee } from '../model/SalesEmployee.js';
+import * as departmentService from '../service/DepartmentService.js';
+import {Employee} from '../model/Employee'
 
 const router = express.Router()
 const myCache = new nodeCache();
 
-// async function buildEmployeeData() {
-//   const dbEmployees = await employeeService.getEmployees()
-
-//   for (let i = 0; i < dbEmployees.length; i++){
-//     dbEmployees[i].deleteLink = `<form method="POST" action="/employees/${dbEmployees[i].EmployeeID}/delete"> <input type='submit' value='Delete Employee' class='delete-button'></form>`
-//   }
-//   return dbEmployees;
-// }
-
-// router.post('/addemployee', async (req,res) =>{
-//     await employeeService.addEmployee(req.body);
-//     res.render('list-employees', {employees: await buildEmployeeData()})
-// })
 router.get('/add-employee-type', async (req,res) => {
     res.render('addemployeetype')
 })
@@ -65,8 +52,6 @@ router.get('/add-employee-financial', async (req,res) => {
 
 router.post('/add-employee-financial', async (req,res) =>{
     var formData = req.body 
-    // console.log(myCache.get("employee-personal"))
-    // const EMPLOYEE_PERSONAL_DETAILS: EmployeePersonal = myCache.get("employee-personal");
    
     if(myCache.get("empType") == "Standard"){
         console.log(myCache.data)
@@ -116,7 +101,6 @@ router.post('/add-employee-financial', async (req,res) =>{
             myCache.set('departmentId', formData.departmentId)
 
             res.redirect('/add-employee-sales')
-
     }
 })
 
@@ -153,5 +137,25 @@ router.get('/get-employees',async (req, res) => {
     const allEmployees = await EMP_DATA_SERVICE_LAYER.getAllEmployeesFromAPI();
     res.render('list-employees', {employees: allEmployees});
 })
+
+router.get("/get-all-departments", async (req, res) => {
+    var departments = await departmentService.getAllDepartments();
+  res.render("list-all-departments", { departments: departments });
+});
+
+router.get('/add-department', async (req,res) => {
+    res.render('adddepartment')
+  })
+  
+  router.post('/add-department', async (req,res) =>{
+    var formData = req.body
+    var Department: Department = {
+      departmentId: 0,
+      departmentName: formData.departmentName,
+      departmentDescription: formData.departmentDescription
+    }
+    await departmentService.addDepartment(Department)
+    res.redirect('list-all-projects')
+  })
 
 module.exports = router
