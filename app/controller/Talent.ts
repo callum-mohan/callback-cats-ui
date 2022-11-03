@@ -25,3 +25,5 @@ router.post('/add-project', async (req,res) =>{
   await projectService.addProject(Project)
   res.redirect('list-all-projects')
 })
+
+module.exports = router
