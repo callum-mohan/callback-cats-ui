@@ -58,3 +58,18 @@ exports.getAllProjects = async() => {
       return new Error("Could not get project, error on the api get request");
     }
   }
+
+  exports.addProject = async (newProject) => {
+    let projects = [];
+    try {
+      const response = await axiosInstance.post(
+        "http://localhost:8080/api/projects/add",
+        newProject
+      );
+      projects = response.data;
+    } catch (e) {
+      console.log(e);
+      return new Error("Could not add project");
+    }
+    return projects;
+  };

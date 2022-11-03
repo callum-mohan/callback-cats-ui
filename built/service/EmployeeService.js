@@ -90,27 +90,4 @@ exports.getAllEmployeesFromAPI = function () { return __awaiter(_this, void 0, v
         }
     });
 }); };
-exports.getEmployeesFromApiBySales = function () { return __awaiter(_this, void 0, void 0, function () {
-    var salesEmployees, response_3, e_3;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                salesEmployees = [];
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.get(
-                    //port 8080 is the JAVA api but 3000 is the JS
-                    "http://localhost:8080/api/employees/get/type=Sales ")];
-            case 2:
-                response_3 = _a.sent();
-                salesEmployees = response_3.data;
-                return [2 /*return*/, employees];
-            case 3:
-                e_3 = _a.sent();
-                return [2 /*return*/, new Error("Could not get emmployee, error on the api get request")];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
 //# sourceMappingURL=EmployeeService.js.map
