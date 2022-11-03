@@ -134,6 +134,7 @@ exports.getAllEmployeesFromAPI = function () { return __awaiter(_this, void 0, v
         }
     });
 }); };
+
 exports.getEmployeesFromApiBySales = function () { return __awaiter(_this, void 0, void 0, function () {
     var salesEmployees, response_5, e_5;
     return __generator(this, function (_a) {
@@ -157,4 +158,5 @@ exports.getEmployeesFromApiBySales = function () { return __awaiter(_this, void 
         }
     });
 }); };
+
 //# sourceMappingURL=EmployeeService.js.map

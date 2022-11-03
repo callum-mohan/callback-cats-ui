@@ -39,8 +39,8 @@ router.get('/add-employee-name', async (req,res) => {
 
 router.post('/add-employee-name', async (req,res) =>{
     var formData = req.body
-   
     myCache.set('empID', 0)
+
     myCache.set('firstname', formData.firstname)
     myCache.set('lastname', formData.lastname)
     res.redirect('add-employee-address')
