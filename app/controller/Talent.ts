@@ -1,23 +1,27 @@
 import * as express from "express";
-import * as PRODUCT_DATA_SERVICE_LAYER from "../service/ProjectService";
+import * as projectService from "../service/ProjectService";
+import {Project} from '../model/Project'
 import * as nodeCache from "node-cache";
-import { Employee } from "../model/Employee";
-import { formatDiagnosticsWithColorAndContext } from "typescript";
-import { EmployeePersonal } from "../model/EmployeePersonal.js";
 
 const router = express.Router();
 const myCache = new nodeCache();
 
 router.get("/get-all-projects", async (req, res) => {
-    var allProjects = await PRODUCT_DATA_SERVICE_LAYER.getAllProjects();
-  res.render("list-sales-employee", { projects: allProjects });
+    var allProjects = await projectService.getAllProjects();
+  res.render("list-all-employee", { projects: allProjects });
 });
 
-router.get("/get-employees-without-project", async (req, res) => {
-    var employeesWithoutProject = await PRODUCT_DATA_SERVICE_LAYER.getEmployeesWithoutProject();
-    
-});
+router.get('/add-project', async (req,res) => {
+  res.render('addproject')
+})
 
-router.get("/get-projects-without-employees", async (req, res) => {
-    var projectsWithoutEmployees = await PRODUCT_DATA_SERVICE_LAYER.getProjectsWithoutEmployees();
-});
+router.post('/add-project', async (req,res) =>{
+  var formData = req.body
+  var Project: Project = {
+    projectId: 0,
+    projectName: formData.projectName,
+    projectDescription: formData.projectDescription
+  }
+  await projectService.addProject(Project)
+  res.redirect('list-all-projects')
+})
