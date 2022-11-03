@@ -48,9 +48,10 @@ router.get("/list-sales-employee", function (req, res) { return __awaiter(void 0
             case 0: return [4 /*yield*/, SALES_EMP_DATA_SERVICE_LAYER.getEmployeesFromApiBySales()];
             case 1:
                 allSalesEmployees = _a.sent();
-                res.render("list-sales-employee", { salesEmployees: allSalesEmployees });
+                res.render("list-sales-employee.html", { salesEmployees: allSalesEmployees });
                 return [2 /*return*/];
         }
     });
 }); });
+module.exports = router;
 //# sourceMappingURL=Sales.js.map

@@ -19,8 +19,9 @@ exports.getEmployeesFromApiBySales = async() => {
       );
   
       salesEmployees = response.data;
+     
   
-      return employees;
+      return salesEmployees;
     } catch (e) {
       return new Error("Could not get sales employees, error on the api get request");
     }
