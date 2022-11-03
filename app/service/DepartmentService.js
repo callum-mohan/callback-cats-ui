@@ -14,7 +14,7 @@ exports.getAllDepartments = async() => {
     let allDepartments = [];
     try {
       const response = await axiosInstance.get(
-        `http://localhost:8080/api/department/get `
+        `http://localhost:8080/api/department/get`
       );
   
       allDepartments = response.data;
