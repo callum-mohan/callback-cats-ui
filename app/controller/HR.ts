@@ -23,6 +23,7 @@ const myCache = new nodeCache();
 //     await employeeService.addEmployee(req.body);
 //     res.render('list-employees', {employees: await buildEmployeeData()})
 // })
+
 router.get('/add-employee-type', async (req,res) => {
     res.render('addemployeetype')
 })
@@ -65,8 +66,6 @@ router.get('/add-employee-financial', async (req,res) => {
 
 router.post('/add-employee-financial', async (req,res) =>{
     var formData = req.body 
-    // console.log(myCache.get("employee-personal"))
-    // const EMPLOYEE_PERSONAL_DETAILS: EmployeePersonal = myCache.get("employee-personal");
    
     if(myCache.get("empType") == "Standard"){
         console.log(myCache.data)
