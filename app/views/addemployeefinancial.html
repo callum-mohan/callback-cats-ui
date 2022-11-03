@@ -13,87 +13,90 @@ Enter a new employee
   html: 'This is a new service – your <a class="govuk-link" href="/feedback">feedback</a> will help us to improve it.'
   }) }}
   <br>
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: "/start"
+    },
+    {
+      text: "Back",
+      href: "/add-employee-address"
+    }
+  ]
+}) }}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
-
 <br>
-
-<h1 class="govuk-heading-xl">
-    Add Employee 
-</h1>{{releaseVersion | log }}
-
-<p>
-    
-</p>
-
-
-
+  <h1 class="govuk-heading-xl">
+      Add Employee 
+  </h1>
+  {{releaseVersion | log }}
 <br>
 
 {% if errormessage %}
-
 <div class="govuk-error-message">{{ errormessage }}</div>
-
 {% endif %}
 
-<form class="form" action="/add-employee-address" method="post">
+<form class="form" action="/add-employee-financial" method="post">
 
     {% from "govuk/components/input/macro.njk" import govukInput %}
     {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
-    
-              {% call govukFieldset({
-                legend: {
-                      text: "Add new Employee Finance details:",
-                       classes: "govuk-fieldset__legend--l",
-                       isPageHeading: true
-                }
-              }) %}
-    
-                {{ govukInput({
-                      label: {
-                        text: 'NIN:'
-                      },
-                      id: "nin",
-                      name: "nin",
-                      autocomplete: "nin"
-                        }) }}
-    
-                {{ govukInput({
-                  label: {
-                    text: "BankNo:"
-                  },
-                  classes: "bankNo",
-                  id: "bankNo",
-                  name: "bankNo",
-                  autocomplete: "bankNo"
-                }) }}
 
-                {{ govukInput({
-                    label: {
-                      text: "Start Salary:"
-                    },
-                    classes: "startSalary",
-                    id: "startSalary",
-                    name: "startSalary",
-                    autocomplete: "startSalary"
-                  }) }}
+    {% call govukFieldset({
+            legend: {
+                  text: "Add new Employee Finance details:",
+                    classes: "govuk-fieldset__legend--l",
+                    isPageHeading: true
+            }
+          }) %}
+
+            {{ govukInput({
+                label: {
+                  text: 'NIN:'
+                },
+                id: "nin",
+                name: "nin",
+                autocomplete: "nin"
+            }) }}
+
+            {{ govukInput({
+                label: {
+                  text: "BankNo:"
+                },
+                classes: "bankNo",
+                id: "bankNo",
+                name: "bankNo",
+                autocomplete: "bankNo"
+            }) }}
+
+            {{ govukInput({
+                label: {
+                  text: "Start Salary:"
+                },
+                classes: "startSalary",
+                id: "startSalary",
+                name: "startSalary",
+                autocomplete: "startSalary"
+            }) }}
 
 
-                  {{ govukInput({
-                    label: {
-                      text: "Department ID:"
-                    },
-                    classes: "departmentId",
-                    id: "departmentId",
-                    name: "departmentId",
-                    autocomplete: "departmentId"
-                  }) }}
-                
-        {% endcall %}
+            {{ govukInput({
+                label: {
+                  text: "Department ID:"
+                },
+                classes: "departmentId",
+                id: "departmentId",
+                name: "departmentId",
+                autocomplete: "departmentId"
+            }) }}
+            
+    {% endcall %}
 
     <button class="govuk-button" data-module="govuk-button">Continue</button>
 </form>
-
-
 
 {% endblock %}

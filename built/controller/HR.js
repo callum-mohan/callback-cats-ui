@@ -95,7 +95,8 @@ router.post('/add-employee-address', function (req, res) { return __awaiter(void
         formData = req.body;
         myCache.set('addressLine', formData.addressLine);
         myCache.set('postcode', formData.postcode);
-        res.redirect('add-employee-personal');
+        res.redirect('add-employee-financial');
+
         return [2 /*return*/];
     });
 }); });
@@ -106,17 +107,18 @@ router.get('/add-employee-financial', function (req, res) { return __awaiter(voi
     });
 }); });
 router.post('/add-employee-financial', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var formData, Employee;
+    var formData, EMPLOYEE_PERSONAL_DETAILS, Employee;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 formData = req.body;
+                EMPLOYEE_PERSONAL_DETAILS = myCache.get("employee-personal");
                 Employee = {
-                    empID: Number(myCache.get('empID')),
-                    firstname: String(myCache.get('firstname')),
-                    lastname: String(myCache.get('lastname')),
-                    address: String(myCache.get('addressLine')),
-                    postcode: String(myCache.get('postcode')),
+                    empID: EMPLOYEE_PERSONAL_DETAILS.empID,
+                    firstname: EMPLOYEE_PERSONAL_DETAILS.firstname,
+                    lastname: EMPLOYEE_PERSONAL_DETAILS.lastname,
+                    address: EMPLOYEE_PERSONAL_DETAILS.address,
+                    postcode: EMPLOYEE_PERSONAL_DETAILS.postcode,
                     nin: formData.nin,
                     bankNo: formData.bankNo,
                     startSalary: formData.startSalary,
@@ -125,7 +127,7 @@ router.post('/add-employee-financial', function (req, res) { return __awaiter(vo
                 return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addEmployee(Employee)];
             case 1:
                 _a.sent();
-                res.redirect('list-employees');
+                res.redirect('addemployeeconfirmation');
                 return [2 /*return*/];
         }
     });
