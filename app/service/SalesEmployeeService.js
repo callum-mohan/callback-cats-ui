@@ -22,6 +22,6 @@ exports.getEmployeesFromApiBySales = async() => {
   
       return employees;
     } catch (e) {
-      return new Error("Could not get emmployee, error on the api get request");
+      return new Error("Could not get sales employees, error on the api get request");
     }
   }
