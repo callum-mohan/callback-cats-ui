@@ -21,3 +21,4 @@ node_modules/
 /cypress/temp
 tmp/
 dbconfig.json
+built/
