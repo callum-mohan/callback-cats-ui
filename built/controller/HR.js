@@ -39,19 +39,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var EMP_DATA_SERVICE_LAYER = require("../service/EmployeeService.js");
 var nodeCache = require("node-cache");
+var departmentService = require("../service/DepartmentService.js");
+var deliveryEmployeeService = require("../service/DeliveryEmployeeService.js");
 var router = express.Router();
 var myCache = new nodeCache();
-// async function buildEmployeeData() {
-//   const dbEmployees = await employeeService.getEmployees()
-//   for (let i = 0; i < dbEmployees.length; i++){
-//     dbEmployees[i].deleteLink = `<form method="POST" action="/employees/${dbEmployees[i].EmployeeID}/delete"> <input type='submit' value='Delete Employee' class='delete-button'></form>`
-//   }
-//   return dbEmployees;
-// }
-// router.post('/addemployee', async (req,res) =>{
-//     await employeeService.addEmployee(req.body);
-//     res.render('list-employees', {employees: await buildEmployeeData()})
-// })
 router.get('/add-employee-type', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         res.render('addemployeetype');
@@ -115,11 +106,11 @@ router.post('/add-employee-financial', function (req, res) { return __awaiter(vo
                 if (!(myCache.get("empType") == "Standard")) return [3 /*break*/, 2];
                 console.log(myCache.data);
                 Employee = {
-                    employeeId: myCache.get("empID"),
-                    first_name: myCache.get("firstname"),
-                    last_name: myCache.get("lastname"),
-                    address: myCache.get("address"),
-                    postcode: myCache.get("postcode"),
+                    employeeId: Number(myCache.get("empID")),
+                    first_name: String(myCache.get("firstname")),
+                    last_name: String(myCache.get("lastname")),
+                    address: String(myCache.get("address")),
+                    postcode: String(myCache.get("postcode")),
                     nin: formData.nin,
                     bankNo: formData.bankNo,
                     startSalary: formData.startSalary,
@@ -134,11 +125,11 @@ router.post('/add-employee-financial', function (req, res) { return __awaiter(vo
                 if (!(myCache.get("empType") == "Delivery")) return [3 /*break*/, 4];
                 console.log(myCache.data);
                 DeliveryEmployee = {
-                    employeeId: myCache.get("empID"),
-                    first_name: myCache.get("firstname"),
-                    last_name: myCache.get("lastname"),
-                    address: myCache.get("address"),
-                    postcode: myCache.get("postcode"),
+                    employeeId: Number(myCache.get("empID")),
+                    first_name: String(myCache.get("firstname")),
+                    last_name: String(myCache.get("lastname")),
+                    address: String(myCache.get("address")),
+                    postcode: String(myCache.get("postcode")),
                     nin: formData.nin,
                     bankNo: formData.bankNo,
                     startSalary: formData.startSalary,
@@ -178,18 +169,18 @@ router.post('/add-employee-sales', function (req, res) { return __awaiter(void 0
                 myCache.set('commissionRate', formData.commissionRate);
                 myCache.set('totalSales', formData.totalSales);
                 SalesEmployee = {
-                    employeeId: myCache.get("empID"),
-                    first_name: myCache.get("firstname"),
-                    last_name: myCache.get("lastname"),
-                    address: myCache.get("address"),
-                    postcode: myCache.get("postcode"),
+                    employeeId: Number(myCache.get("empID")),
+                    first_name: String(myCache.get("firstname")),
+                    last_name: String(myCache.get("lastname")),
+                    address: String(myCache.get("address")),
+                    postcode: String(myCache.get("postcode")),
                     nin: formData.nin,
                     bankNo: formData.bankNo,
                     startSalary: formData.startSalary,
                     departmentId: formData.departmentId,
                     salesId: 0,
-                    commissionRate: myCache.get("commissionRate"),
-                    totalSales: myCache.get("totalSales")
+                    commissionRate: Number(myCache.get("commissionRate")),
+                    totalSales: Number(myCache.get("totalSales"))
                 };
                 return [4 /*yield*/, EMP_DATA_SERVICE_LAYER.addSalesEmployee(SalesEmployee)];
             case 1:
@@ -207,6 +198,55 @@ router.get('/get-employees', function (req, res) { return __awaiter(void 0, void
             case 1:
                 allEmployees = _a.sent();
                 res.render('list-employees', { employees: allEmployees });
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.get("/get-all-departments", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var departments;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, departmentService.getAllDepartments()];
+            case 1:
+                departments = _a.sent();
+                res.render("list-all-departments", { departments: departments });
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.get('/add-department', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.render('adddepartment');
+        return [2 /*return*/];
+    });
+}); });
+router.post('/add-department', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var formData, Department;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                formData = req.body;
+                Department = {
+                    departmentId: 0,
+                    departmentName: formData.departmentName,
+                    departmentDescription: formData.departmentDescription
+                };
+                return [4 /*yield*/, departmentService.addDepartment(Department)];
+            case 1:
+                _a.sent();
+                res.redirect('list-all-projects');
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.get("/get-all-delivery-employees", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var deliveryEmployees;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, deliveryEmployeeService.getDeliveryEmployees()];
+            case 1:
+                deliveryEmployees = _a.sent();
+                res.render("list-delivery-employees", { deliveryEmployees: deliveryEmployees });
                 return [2 /*return*/];
         }
     });
