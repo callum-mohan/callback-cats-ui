@@ -5,6 +5,7 @@ import {Department} from '../model/Department'
 import { DeliveryEmployee } from '../model/DeliveryEmployee.js';
 import { SalesEmployee } from '../model/SalesEmployee.js';
 import * as departmentService from '../service/DepartmentService.js';
+import * as deliveryEmployeeService from '../service/DeliveryEmployeeService.js';
 import {Employee} from '../model/Employee'
 
 const router = express.Router()
@@ -57,11 +58,11 @@ router.post('/add-employee-financial', async (req,res) =>{
         console.log(myCache.data)
 
             var Employee: Employee = {
-            employeeId: myCache.get("empID"),
-            first_name:myCache.get("firstname"),
-            last_name: myCache.get("lastname"),
-            address: myCache.get("address"),
-            postcode: myCache.get("postcode"),
+            employeeId: Number(myCache.get("empID")),
+            first_name: String(myCache.get("firstname")),
+            last_name: String(myCache.get("lastname")),
+            address: String(myCache.get("address")),
+            postcode: String(myCache.get("postcode")),
             nin: formData.nin,
             bankNo: formData.bankNo,
             startSalary: formData.startSalary,
@@ -76,11 +77,11 @@ router.post('/add-employee-financial', async (req,res) =>{
         console.log(myCache.data)
 
         var DeliveryEmployee: DeliveryEmployee = {
-            employeeId: myCache.get("empID"),
-            first_name:myCache.get("firstname"),
-            last_name: myCache.get("lastname"),
-            address: myCache.get("address"),
-            postcode: myCache.get("postcode"),
+            employeeId: Number(myCache.get("empID")),
+            first_name: String(myCache.get("firstname")),
+            last_name: String(myCache.get("lastname")),
+            address: String(myCache.get("address")),
+            postcode: String(myCache.get("postcode")),
             nin: formData.nin,
             bankNo: formData.bankNo,
             startSalary: formData.startSalary,
@@ -114,18 +115,18 @@ router.post('/add-employee-sales', async (req,res) =>{
     myCache.set('totalSales', formData.totalSales)
 
     var SalesEmployee: SalesEmployee = {
-        employeeId: myCache.get("empID"),
-        first_name:myCache.get("firstname"),
-        last_name: myCache.get("lastname"),
-        address: myCache.get("address"),
-        postcode: myCache.get("postcode"),
+        employeeId: Number(myCache.get("empID")),
+        first_name: String(myCache.get("firstname")),
+        last_name: String(myCache.get("lastname")),
+        address: String(myCache.get("address")),
+        postcode: String(myCache.get("postcode")),
         nin: formData.nin,
         bankNo: formData.bankNo,
         startSalary: formData.startSalary,
         departmentId: formData.departmentId,
         salesId: 0,
-        commissionRate: myCache.get("commissionRate"),
-        totalSales: myCache.get("totalSales")
+        commissionRate: Number(myCache.get("commissionRate")),
+        totalSales: Number(myCache.get("totalSales"))
         }
     
         await EMP_DATA_SERVICE_LAYER.addSalesEmployee(SalesEmployee)
@@ -147,7 +148,7 @@ router.get('/add-department', async (req,res) => {
     res.render('adddepartment')
   })
   
-  router.post('/add-department', async (req,res) =>{
+router.post('/add-department', async (req,res) =>{
     var formData = req.body
     var Department: Department = {
       departmentId: 0,
@@ -157,5 +158,11 @@ router.get('/add-department', async (req,res) => {
     await departmentService.addDepartment(Department)
     res.redirect('list-all-projects')
   })
+
+router.get("/get-all-delivery-employees", async (req, res) => {
+    var deliveryEmployees = await deliveryEmployeeService.getDeliveryEmployees();
+  res.render("list-delivery-employees", { deliveryEmployees: deliveryEmployees });
+});
+
 
 module.exports = router
