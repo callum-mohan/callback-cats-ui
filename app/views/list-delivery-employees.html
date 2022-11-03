@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block pageTitle %}
+List of Delivery Employees
+{% endblock %}
+{% block content %}
+
+<h1 class="govuk-heading-xl">
+  All Delivery Employees
+  <span class="govuk-caption-xl"></span>
+</h1>
+<p>
+  This lets you view all the Delivery Employees, and all information stored of them.
+</p>
+
+{% if deliveryEmployees and deliveryEmployees.length > 0 %}
+{% set deliveryEmployeeRows = [] %}
+{% for deliveryEmployee in deliveryEmployees %}
+{% set deliveryEmployeeRows = (deliveryEmployeeRows.push([ { text: deliveryEmployee.employeeId }, { text: deliveryEmployee.first_name  }, { text: deliveryEmployee.last_name },
+{ text: deliveryEmployee.address }, { text: deliveryEmployee.postcode }, { text: deliveryEmployee.nin  }, { text: deliveryEmployee.bankNo }, 
+{text: deliveryEmployee.startSalary }, {text: deliveryEmployee.departmentId } ]), deliveryEmployeeRows) %}
+{% endfor %}
+{{govukTable({
+caption:"List of Delivery Employees",
+head: [ { text: "ID" },{ text: "First Name" },{ text: "Surname" },
+{ text: "Address" },{ text: "Postcode" }, { text: "National Insurance Number"}, 
+{text: "Bank Number"} , {text: "Salary"} , {text: "Department Id"}],
+rows: deliveryEmployeeRows })
+}}
+{% else %}
+There are no Delivery Employees.
+{% endif %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+<ul class="govuk-list govuk-list--bullet">
+    <li>
+      <a href="index.html">Return back</a>
+    </li>
+  </ul>
+{% endblock %}
