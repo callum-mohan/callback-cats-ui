@@ -16,7 +16,7 @@ List of Projects
 {% if projects and projects.length > 0 %}
 {% set projectRows = [] %}
 {% for project in projects %}
-{% set projectRows = (projectRows.push([ { text: project.projectId }, { text: project.projectName  }, { text: employee.projectDescription } ]), projectRows) %}
+{% set projectRows = (projectRows.push([ { text: project.projectId }, { text: project.projectName  }, { text: project.projectDescription } ]), projectRows) %}
 {% endfor %}
 {{govukTable({
 caption:"List of Projects",

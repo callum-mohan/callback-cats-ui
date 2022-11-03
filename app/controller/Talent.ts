@@ -7,8 +7,8 @@ const router = express.Router();
 const myCache = new nodeCache();
 
 router.get("/get-all-projects", async (req, res) => {
-    var allProjects = await projectService.getAllProjects();
-  res.render("list-all-employee", { projects: allProjects });
+    var projects = await projectService.getAllProjects();
+  res.render("list-all-projects", { projects: projects });
 });
 
 router.get('/add-project', async (req,res) => {

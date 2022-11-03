@@ -20,7 +20,7 @@ exports.getAllProjects = async() => {
   
       allProjects = response.data;
   
-      return employees;
+      return allProjects;
     } catch (e) {
       return new Error("Could not get project, error on the api get request");
     }
