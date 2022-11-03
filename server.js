@@ -25,6 +25,9 @@ const documentationRoutes = require('./docs/documentation_routes.js')
 const prototypeAdminRoutes = require('./lib/prototype-admin-routes.js')
 const packageJson = require('./package.json')
 const HRroute = require(`${process.cwd()}/built/controller/HR.js`)
+const financeRoute = require(`${process.cwd()}/built/controller/Finance.js`)
+const salesRoute = require(`${process.cwd()}/built/controller/Sales.js`)
+const talentRoute = require(`${process.cwd()}/built/controller/Talent.js`)
 const utils = require('./lib/utils.js')
 const extensions = require('./lib/extensions/extensions.js')
 const { projectDir } = require('./lib/utils')
@@ -237,14 +240,8 @@ if (promoMode === 'true') {
   })
 }
 
-// Load routes (found in app/routes.js)
-if (typeof (HRroute) !== 'function') {
-  console.log(HRroute.bind)
-  console.log('Warning: the use of bind in routes is deprecated - please check the Prototype Kit documentation for writing routes.')
-  HRroute.bind(app)
-} else {
-  app.use('/', HRroute)
-}
+app.use('/', HRroute, salesRoute, financeRoute, talentRoute)
+
 
 if (useDocumentation) {
   // Clone app locals to documentation app locals

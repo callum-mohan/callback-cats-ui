@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+Add a new project
+{% endblock %}
+
+{% block content %}
+
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+    {{ govukBreadcrumbs({
+        items: [
+            {
+            text: "Home",
+            href: "/start"
+            },
+            {
+            text: "Back",
+            href: "/start"
+            }
+        ]
+    }) }}
+
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+<br>
+<h1 class="govuk-heading-xl">
+    Add Project 
+</h1>{{releaseVersion | log }}
+<p>
+    This service allows you add a project to the system.
+</p>
+<br>
+
+{% if errormessage %}
+<div class="govuk-error-message">{{ errormessage }}</div>
+{% endif %}
+
+<form class="form" action="/add-project" method="post">
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+    {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+
+    {{ govukInput({
+        label: {
+        text: "What is the project name?"
+        },
+        classes: "govuk-input--width-10",
+        id: "projectName",
+        name: "projectName",
+        value: data["projectName"]
+    }) }}
+
+
+    {{ govukInsetText({
+    text: "Ensure this is only the project name"
+    }) }}
+
+    {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+    {{ govukTextarea({
+    name: "projectDescription",
+    id: "projectDescription",
+    value: data["projectDescription"],
+    label: {
+    text: "Add project description",
+    classes: "govuk-label--l",
+    isPageHeading: true
+    },
+    hint: {
+    text: "Add a brief description of the project including any important details."
+    }
+    }) }}
+
+    {{ govukInsetText({
+        text: "Ensure this is only the project description"
+    }) }}
+
+    <button class="govuk-button" data-module="govuk-button">Add project</button>
+</form>
+
+{% endblock %}

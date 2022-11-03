@@ -78,6 +78,7 @@ router.post('/add-employee-name', function (req, res) { return __awaiter(void 0,
     return __generator(this, function (_a) {
         formData = req.body;
         myCache.set('empID', 0);
+
         myCache.set('firstname', formData.firstname);
         myCache.set('lastname', formData.lastname);
         res.redirect('add-employee-address');
