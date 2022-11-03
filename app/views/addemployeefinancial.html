@@ -60,28 +60,31 @@ Enter a new employee
                 label: {
                   text: "BankNo:"
                 },
-                classes: "bankNo",
+                classes: "govuk-input--width-20",
                 id: "bankNo",
                 name: "bankNo",
                 autocomplete: "bankNo"
             }) }}
 
             {{ govukInput({
-                label: {
-                  text: "Start Salary:"
-                },
-                classes: "startSalary",
-                id: "startSalary",
-                name: "startSalary",
-                autocomplete: "startSalary"
+              id: "startSalary",
+              name: "startSalary",
+              label: {
+                text: "Start Salary:"
+                
+              },
+              prefix: {
+                text: "£"
+              },
+              classes: "govuk-input--width-20",
+              spellcheck: false
             }) }}
-
 
             {{ govukInput({
                 label: {
                   text: "Department ID:"
                 },
-                classes: "departmentId",
+                classes: "govuk-input--width-20",
                 id: "departmentId",
                 name: "departmentId",
                 autocomplete: "departmentId"
